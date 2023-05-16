@@ -1,4 +1,6 @@
-# Hangman Game in C# ![Hangman Game](https://cdn.iconscout.com/icon/free/png-256/free-hang-1551091-1315157.png)
+# Hangman Game in C#
+
+![Hangman Game](https://cdn.iconscout.com/icon/free/png-256/free-hang-1551091-1315157.png)
 
 Welcome to the Hangman Game, a classic word guessing game implemented in C#! Test your vocabulary and guessing skills by trying to figure out the secret word before the hangman is complete.
 
