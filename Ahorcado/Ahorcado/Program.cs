@@ -68,19 +68,15 @@
                         cont--;
                     }
                     else
-                    {
                         if (inputLetterChar == wordChar[k])
                         {
                             length[k] = inputLetterChar;
                             cont--;
                             win++;
                         }
-                    }
                 }
                 if (cont == 8)
-                {
                     trys--;
-                }
                 if (trys == 0)
                 {
                     Console.Clear();
@@ -92,124 +88,62 @@
                 if (word.Contains(' '))
                 {
                     if (win == wordChar.Length - 1)
-                    {
                         youWin = true;
-                    }
+
                     Console.Clear();
                 }
                 else
                 {
                     if (win == wordChar.Length)
-                    {
                         youWin = true;
-                    }
+
                     Console.Clear();
                 }
             }
             WriteEndGame(word, trys, youWin);
         }
-        static string ChooseWord()
-        {
-            Random random = new Random();
-            int n = random.Next(0, 5);
-            
-            string find = WORDS[n];
-            return find;
-        }
-        static char[] WriteDashes(string word)
-        {
-            char[] length = word.ToCharArray();
-            for (int i = 0; i < word.Length; i++)
-            {
-                if (length[i] == ' ')
-                {
-                    length[i] = ' ';
-                }
-                else
-                {
-                    length[i] = '-';
-                }
-            }
-            return length;
-        }
-        static bool CheckOnlyOneLetter(string word)
-        {
-            bool oneLetter = false;
-            if (word.Length == 1)
-            {
-                oneLetter = true;
-            }
-            return oneLetter;
-        }
+        //-----------------------------------------------------------------------------------------------------------------
+        static string ChooseWord() => WORDS[new Random().Next(WORDS.Length)];
+        //-----------------------------------------------------------------------------------------------------------------
+        static char[] WriteDashes(string word) => word.Select(c => char.IsLetter(c) ? '-' : c).ToArray();
+        //-----------------------------------------------------------------------------------------------------------------
+        static bool CheckOnlyOneLetter(string word) => word.Length == 1;
+        //-----------------------------------------------------------------------------------------------------------------
         static void WriteEndGame(string word, int trys, bool youWin)
         {
-            if (youWin == true)
-            {
-                DrawGallow(trys);
-                Console.WriteLine();
-                Console.WriteLine("¡HAS GANADO! La palabra era: {0}", word.ToUpper());
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("La palabra era: {0}", word.ToUpper());
-                Console.ReadKey();
-            }
+            Console.Clear();
+            DrawGallow(youWin ? 0 : trys);
+            Console.WriteLine();
+            Console.WriteLine(youWin ? $"¡HAS GANADO! La palabra era: {word.ToUpper()}" : $"La palabra era: {word.ToUpper()}");
+            Console.ReadKey();
         }
+        //-----------------------------------------------------------------------------------------------------------------
         static void DrawGallow(int trys)
         {
-            if (trys == 8) Console.Write("-" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|" + "\n---");        
-            if (trys == 7) Console.Write("------" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|" + "\n---");        
-            if (trys == 6) Console.Write("------" + "\n|   |" + "\n|" + "\n|" + "\n|" + "\n|" + "\n---");        
-            if (trys == 5) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|" + "\n|" + "\n|" + "\n---");           
-            if (trys == 4) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|   |" + "\n|" + "\n|" + "\n---");       
-            if (trys == 3) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|  /|" + "\n| " + "\n|" + "\n---");      
-            if (trys == 2) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|  /|\\" + "\n|" + "\n|" + "\n---");        
-            if (trys == 1) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|  /|\\" + "\n|  /" + "\n|" + "\n---");        
-            if (trys == 0) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|  /|\\" + "\n|  / \\" + "\n|" + "\n---");    
+            if (trys == 8) Console.Write("-" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|" + "\n---");
+            if (trys == 7) Console.Write("------" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|" + "\n---");
+            if (trys == 6) Console.Write("------" + "\n|   |" + "\n|" + "\n|" + "\n|" + "\n|" + "\n---");
+            if (trys == 5) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|" + "\n|" + "\n|" + "\n---");
+            if (trys == 4) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|   |" + "\n|" + "\n|" + "\n---");
+            if (trys == 3) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|  /|" + "\n| " + "\n|" + "\n---");
+            if (trys == 2) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|  /|\\" + "\n|" + "\n|" + "\n---");
+            if (trys == 1) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|  /|\\" + "\n|  /" + "\n|" + "\n---");
+            if (trys == 0) Console.Write("------" + "\n|   |" + "\n|   O" + "\n|  /|\\" + "\n|  / \\" + "\n|" + "\n---");
         }
-        static bool CheckIfLetterRepeat(string abc, string letter)
-        {
-            bool result;
-            if (abc.Contains(letter)) result = false;
-            else result = true;
-            
-            return result;
-        }
+        //-----------------------------------------------------------------------------------------------------------------
+        static bool CheckIfLetterRepeat(string abc, string letter) => !abc.Contains(letter);
+        //-----------------------------------------------------------------------------------------------------------------
         static bool IsALetter(string letter)
         {
-            bool result;
             string alphabet = "abcdefghijklmnñopqrstuvwxyz";
-            
-            if (alphabet.Contains(letter)) result = true;
-            else result = false;
- 
-            return result;
+            return alphabet.Contains(letter);
         }
+        //-----------------------------------------------------------------------------------------------------------------
         static string SortLetters(string result)
         {
-            char[] letters = new char[result.Length];
-            for (int x = 0; x < result.Length; x++)
-            {
-                letters[x] = result[x];
-            }
-
-            for (int i = 0; i < letters.Length; i++)
-            {
-                for (int j = i + 1; j < letters.Length; j++)
-                {
-                    char aux;
-                    if (letters[i] > letters[j])
-                    {
-                        aux = letters[i];
-                        letters[i] = letters[j];
-                        letters[j] = aux;
-                    }
-                }
-            }
-            string sort3 = "[" + String.Join(",", letters) + "]";
-            return sort3;
+            char[] letters = result.ToCharArray();
+            Array.Sort(letters);
+            return "[" + new string(letters) + "]";
         }
     }
 }
